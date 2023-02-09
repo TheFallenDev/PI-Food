@@ -1,33 +1,35 @@
-const recipePostHandler = (req,res) => {
+const { createRecipe, searchRecipeById } = require("../controllers/recipesControllers");
+const postRecipeHandler = async (req,res) => {
+    const { name, details, healthScore, instructions } = req.body;
     try {
-        res.status(200).send("Funciona perfectamente")
+        const newRecipe = await createRecipe(name, details, healthScore, instructions);
+        res.status(201).json(newRecipe);
     } catch (error) {
-        res.status(404);
-        throw new Error(error.message)
+        res.status(400).json({ error: error.message });
     }
 };
 
-const recipeGetParamHandler = async (req,res) => {
-    const { id } = await req.params;
+const getRecipeParamHandler = async (req,res) => {
+    const { id } = req.params;
+    const source = isNaN(id) ? "db" : "api"
     try {
-        res.status(200).send(id)
+        const recipe = await searchRecipeById(id, source);
+        res.status(200).json(recipe);
     } catch (error) {
-        res.status(404);
-        throw new Error(error.message)
+        res.status(404).json({ error: error.message });
     }
-};
+}; 
 
-const recipeGetQueryHandler = (req,res) => {
+const getRecipeQueryHandler = (req,res) => {
     try {
-        res.status(200).send(req.query)
+        res.status(200).send(req.query);
     } catch (error) {
-        res.status(404);
-        throw new Error(error.message)
+        res.status(404).json({ error: error.message })
     }
 }
 
 module.exports = {
-    recipePostHandler,
-    recipeGetParamHandler,
-    recipeGetQueryHandler,
+    postRecipeHandler,
+    getRecipeParamHandler,
+    getRecipeQueryHandler,
 };
