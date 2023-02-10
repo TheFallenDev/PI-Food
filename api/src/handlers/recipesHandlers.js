@@ -1,8 +1,8 @@
-const { createRecipe, searchRecipeById } = require("../controllers/recipesControllers");
+const { createRecipe, searchRecipeById, searchRecipeByTitle } = require("../controllers/recipesControllers");
 const postRecipeHandler = async (req,res) => {
-    const { name, details, healthScore, instructions } = req.body;
+    const { title, summary, healthScore, analizedInstructions } = req.body;
     try {
-        const newRecipe = await createRecipe(name, details, healthScore, instructions);
+        const newRecipe = await createRecipe(title, summary, healthScore, analizedInstructions);
         res.status(201).json(newRecipe);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -20,9 +20,11 @@ const getRecipeParamHandler = async (req,res) => {
     }
 }; 
 
-const getRecipeQueryHandler = (req,res) => {
+const getRecipeQueryHandler = async (req,res) => {
+    const { title } = req.query;
     try {
-        res.status(200).send(req.query);
+        const recipe = await searchRecipeByTitle(title);
+        res.status(200).json(recipe);
     } catch (error) {
         res.status(404).json({ error: error.message })
     }

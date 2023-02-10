@@ -9,19 +9,19 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    details: {
+    summary: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     healthScore: {
      type: DataTypes.INTEGER,
     },
-    instructions: {
+    analizedInstructions: {
       type: DataTypes.STRING,
     },
   }, {
