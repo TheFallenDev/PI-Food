@@ -1,8 +1,12 @@
-const Home = () => {
+import Searchbar from "../../components/Searchbar/Searchbar";
+import CardsContainer from "../../components/CardsContainer/CardsContainer";
+
+const Home = (props) => {
     return(
-        <>
-            <h1>Todo funcionando en la vista Home</h1>
-        </>
+        <div>
+            <Searchbar/>
+            <CardsContainer/>
+        </div>
     )
 };
 

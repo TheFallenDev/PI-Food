@@ -16,11 +16,13 @@ const searchRecipeById = async (id, source) => {
 
 const filterApiResults = (array) => 
     array.map((element) => {
+        if (element.vegetarian) element.diets.push("vegetarian");
+
         return {
             id: element.id,
+            diets: element.diets,
             title: element.title,
-            summary: element.summary,
-            healthScore: element.healthScore,
+            image: element.image,
         };
     });
 
