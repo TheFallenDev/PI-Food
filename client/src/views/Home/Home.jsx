@@ -4,8 +4,8 @@ import CardsContainer from "../../components/CardsContainer/CardsContainer";
 const Home = (props) => {
     return(
         <div>
-            <Searchbar/>
-            <CardsContainer/>
+            <Searchbar onSearch={props.onSearch}/>
+            <CardsContainer recipes={props.recipes}/>
         </div>
     )
 };

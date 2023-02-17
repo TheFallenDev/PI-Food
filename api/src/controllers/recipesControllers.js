@@ -35,12 +35,12 @@ const searchRecipeByTitle = async (title) => {
             }
         }
     });
-    if(recipes.length < 100) {
+    /*if(recipes.length < 100) {
         const length = 100 - recipes.length;
         const apiRawResults = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${title}&apiKey=${API_KEY}&number=${length}&addRecipeInformation=true`)).data.results;
         const apiResults = filterApiResults(apiRawResults);
         return [...recipes,...apiResults];
-    }
+    }*/
     return recipes;
 };
 

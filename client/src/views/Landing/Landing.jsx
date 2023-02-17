@@ -1,9 +1,10 @@
-import * as styles from "./Landing.module.css"
+//import * as styles from "./Landing.module.css"
+import { Link } from "react-router-dom";
 
 const Landing = () => {
     return(
         <div>
-            <button>Ingresar</button>
+            <button onClick={}>Ingresar</button>
         </div>
     )
 };

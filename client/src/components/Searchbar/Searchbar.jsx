@@ -2,7 +2,6 @@ import { useState } from "react"
 
 const Searchbar = (props) => {
     const [title, setTitle] = useState("");
-
     const handleInputChange = (event)=>{
         setTitle(event.target.value)
     };
