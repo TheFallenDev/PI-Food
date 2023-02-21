@@ -3,8 +3,8 @@ const { Op } = require('sequelize');
 const { API_KEY } = process.env;
 const axios = require('axios')
 
-const createRecipe = async (title, summary, healthScore, analizedInstructions) => {
-    await Recipe.create({ title, summary, healthScore, analizedInstructions });
+const createRecipe = async (title, summary, healthScore, instructions) => {
+    await Recipe.create({ title, summary, healthScore, instructions });
 };
 
 const searchRecipeById = async (id, source) => {
