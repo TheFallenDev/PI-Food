@@ -1,8 +1,8 @@
 const Detail = () => {
     return(
-        <>
-            <h1>Todo funcionando en la vista Detail</h1>
-        </>
+        <div>
+            
+        </div>
     )
 };
 

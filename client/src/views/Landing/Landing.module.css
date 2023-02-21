@@ -1,0 +1,33 @@
+.landing{
+    position: relative;
+    background: url("./background.jpg");
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+.text{
+    font-size: 3em;
+    text-shadow: 2px 2px 2px #333;
+}
+
+.link{
+    font-size: 2em;
+    text-shadow: 2px 2px 2px #333;
+    margin-top: -20px;
+    margin-bottom: 5px;
+}
