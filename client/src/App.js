@@ -2,6 +2,7 @@ import { Home, Detail, Form, Landing, Error } from "./views"
 import NavBar from "./components/NavBar/NavBar";
 import { Route, useLocation } from "react-router-dom";
 import { useState } from "react";
+import style from "./App.css"
 
 function App() {
   const [recipes, setRecipes] = useState([])
@@ -20,7 +21,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app">
       {location.pathname !== '/' && <NavBar/>}
       <Route exact path="/" render={() => <Landing />}/>
       <Route path="/home" render={() => <Home onSearch={onSearch} recipes={recipes}/>} />

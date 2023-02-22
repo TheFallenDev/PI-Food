@@ -1,6 +1,5 @@
 .landing{
     position: relative;
-    background: url("./background.jpg");
     height: 600px;
     display: flex;
     align-items: center;
