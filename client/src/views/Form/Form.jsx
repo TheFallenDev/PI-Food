@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { regexTitle, regexInstructions, regexScore, regexSummary } from "./validators";
+import style from "./Form.module.css"
 
 const Form = () => {
-
     const [form,setForm] = useState({
         title:"",
         summary:"",
         healthScore:"",
         instructions:"",
-        diets:[],
+        diets: [],
     });
 
     const [errors,setErrors] = useState({
@@ -35,13 +35,16 @@ const Form = () => {
     const changeHandler = (event) => {
         const property = event.target.name;
         const value = event.target.value;
-        console.log(form);
+        const id = event.target.id;
         validate({...form,[property]:value});
-        setForm({...form,[property]:value});
+        if(id) setForm({...form,[property]:id})
+        else setForm({...form,[property]:value});
+        console.log(form);
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
+        console.log(form);
         fetch("http://localhost:3001/recipes",{
             method: 'POST',
             body: JSON.stringify(form),
@@ -54,7 +57,7 @@ const Form = () => {
     };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={style.form} onSubmit={submitHandler}>
       <h1>Crea tu propia receta</h1>
       <div>
         <label>Nombre: </label>
@@ -63,7 +66,7 @@ const Form = () => {
       </div>
       <div>
         <label>Resumen de plato: </label>
-        <input type="text" value={form.summary} onChange={changeHandler} name="summary"/>
+        <textarea value={form.summary} onChange={changeHandler} name="summary"/>
       </div>
       <div>
         <label>Nivel de comida saludable: </label>
@@ -71,48 +74,48 @@ const Form = () => {
       </div>
       <div>
         <label>Paso a paso: </label>
-        <input type="text" value={form.instructions} onChange={changeHandler} name="instructions"/>
+        <textarea value={form.instructions} onChange={changeHandler} name="instructions"/>
       </div>
       <div>
         <h3>Tipos de dieta</h3>
         <div>
-          <input type="checkbox" name="vegetarian" id="vegetarian" />
+          <input type="checkbox" name="vegetarian" id="vegetarian" onChange={changeHandler}/>
           <label htmlFor="vegetarian">Vegetariana</label>
         </div>
         <div>
-          <input type="checkbox" name="vegan" id="vegan" />
+          <input type="checkbox" name="vegan" id="vegan" onChange={changeHandler}/>
           <label htmlFor="vegan">Vegana</label>
         </div>
         <div>
-          <input type="checkbox" name="glutenfree" id="glutenfree" />
+          <input type="checkbox" name="glutenfree" id="glutenfree" onChange={changeHandler}/>
           <label htmlFor="glutenfree">Sin T.A.C.C</label>
         </div>
         <div>
-          <input type="checkbox" name="dairyfree" id="dairyfree" />
+          <input type="checkbox" name="dairyfree" id="dairyfree" onChange={changeHandler}/>
           <label htmlFor="dairyfree">Sin lactosa</label>
         </div>
         <div>
-          <input type="checkbox" name="ketogenic" id="ketogenic" />
+          <input type="checkbox" name="ketogenic" id="ketogenic" onChange={changeHandler}/>
           <label htmlFor="ketogenic">Ketogenica</label>
         </div>
         <div>
-          <input type="checkbox" name="pescetarian" id="pescetarian" />
+          <input type="checkbox" name="pescetarian" id="pescetarian" onChange={changeHandler}/>
           <label htmlFor="pescetarian">Pescetariana</label>
         </div>
         <div>
-          <input type="checkbox" name="paleo" id="paleo" />
+          <input type="checkbox" name="paleo" id="paleo" onChange={changeHandler}/>
           <label htmlFor="paleo">Paleo</label>
         </div>
         <div>
-          <input type="checkbox" name="primal" id="primal" />
+          <input type="checkbox" name="primal" id="primal" onChange={changeHandler}/>
           <label htmlFor="primal">Primitiva</label>
         </div>
         <div>
-          <input type="checkbox" name="lowfodmap" id="lowfodmap" />
+          <input type="checkbox" name="lowfodmap" id="lowfodmap" onChange={changeHandler}/>
           <label htmlFor="lowfodmap">Baja en FODMAP</label>
         </div>
         <div>
-          <input type="checkbox" name="whole30" id="whole30" />
+          <input type="checkbox" name="whole30" id="whole30" onChange={changeHandler}/>
           <label htmlFor="whole30">Whole 30</label>
         </div>
       </div>
