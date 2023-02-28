@@ -1,10 +1,19 @@
 import { Home, Detail, Form, Landing, Error } from "./views"
 import NavBar from "./components/NavBar/NavBar";
 import { Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllDiets } from "./redux/actions"
 import style from "./App.css"
 
 function App() {
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+      dispatch(getAllDiets());
+  },[dispatch]);
+
   const [recipes, setRecipes] = useState([])
   const location = useLocation();
 

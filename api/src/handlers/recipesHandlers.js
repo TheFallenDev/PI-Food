@@ -1,8 +1,9 @@
 const { createRecipe, searchRecipeById, searchRecipeByTitle } = require("../controllers/recipesControllers");
 const postRecipeHandler = async (req,res) => {
-    const { title, summary, healthScore, instructions } = req.body;
+    const { title, summary, healthScore, instructions, diets } = req.body;
     try {
         const newRecipe = await createRecipe(title, summary, healthScore, instructions);
+        
         res.status(201).json(newRecipe);
     } catch (error) {
         res.status(400).json({ error: error.message });
