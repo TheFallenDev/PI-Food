@@ -1,0 +1,38 @@
+.container{
+    margin: auto;
+    padding: 15px;
+    background-color: rgba(250, 235, 215, 0.8);
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column wrap;
+    max-width: 800px;
+}
+
+.imageContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.imageContainer img {
+    border-radius: 10px;
+}
+
+.title{
+
+}
+
+.summary{
+
+}
+
+.smallContainer{
+    border: 1px solid black;
+}
+
+.dishType{
+
+}
+
+.diet{
+
+}

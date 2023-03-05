@@ -1,17 +1,24 @@
 import Searchbar from "../../components/Searchbar/Searchbar";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
+import Loader from "../../components/Loader/Loader";
+import Filters from "../../components/Filters/Filters";
 import { useSelector } from "react-redux";
-import style from "./Home.module.css"
+import style from "./Home.module.css";
 
-const Home = (props) => {
-    const diets = useSelector(state=>state.diets);
+const Home = () => {
+  const loading = useSelector((state) => state.loading);
+  
 
-    return(
-        <div className={style.home}>
-            <Searchbar onSearch={props.onSearch}/>
-            <CardsContainer recipes={props.recipes}/>
-        </div>
-    )
+  return (
+    <div className={style.container}>
+      <div className={style.smallContainer}>
+        <Searchbar />
+        <Filters />
+      </div>
+      <CardsContainer />
+      {loading && <Loader />}
+    </div>
+  );
 };
 
 export default Home;

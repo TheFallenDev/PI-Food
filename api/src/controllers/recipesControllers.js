@@ -3,8 +3,17 @@ const { Op } = require('sequelize');
 const { API_KEY } = process.env;
 const axios = require('axios')
 
-const createRecipe = async (title, summary, healthScore, instructions) => {
-    await Recipe.create({ title, summary, healthScore, instructions });
+const image = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80'
+
+const createRecipe = async (title, summary, healthScore, instructions, diets) => {
+    const recipe = await Recipe.create({ 
+        title, 
+        summary, 
+        healthScore, 
+        instructions,
+        image:image,
+    });
+    await recipe.addDiets(diets)
 };
 
 const searchRecipeById = async (id, source) => {
@@ -13,18 +22,6 @@ const searchRecipeById = async (id, source) => {
     (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)).data
     return recipe;
 };
-
-const filterApiResults = (array) => 
-    array.map((element) => {
-        if (element.vegetarian) element.diets.push("vegetarian");
-
-        return {
-            id: element.id,
-            diets: element.diets,
-            title: element.title,
-            image: element.image,
-        };
-    });
 
 const searchRecipeByTitle = async (title) => {
     // Agrego doble "%" para que busque la palabra en cualquier parte del string
@@ -35,12 +32,12 @@ const searchRecipeByTitle = async (title) => {
             }
         }
     });
-    /*if(recipes.length < 100) {
+    if(recipes.length < 100) {
         const length = 100 - recipes.length;
-        const apiRawResults = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${title}&apiKey=${API_KEY}&number=${length}&addRecipeInformation=true`)).data.results;
-        const apiResults = filterApiResults(apiRawResults);
-        return [...recipes,...apiResults];
-    }*/
+        const apiResults = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${title}&apiKey=${API_KEY}&number=${length}&addRecipeInformation=true`)).data.results;
+        let response = [...recipes,...apiResults];
+        return response;
+    }
     return recipes;
 };
 

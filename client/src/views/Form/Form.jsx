@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showLoading } from "../../redux/actions";
 import validate from "./validators";
 import style from "./Form.module.css"
 
 const Form = () => {
-    const [checkedDiets, setCheckedDiets] = useState([])
-    const diets = useSelector( state=> state.diets);
-
+    const [checkedDiets, setCheckedDiets] = useState([]);
+    const diets = useSelector(state=>state.diets);
     const [form,setForm] = useState({
         title:"",
         summary:"",
         healthScore:"",
         instructions:"",
-        diets: [],
+        diets: []
     });
 
     const [errors,setErrors] = useState({
@@ -36,17 +36,20 @@ const Form = () => {
     };
 
     const checkboxChangeHandler = (event) => {
-      const { value, checked} = event.target;
-      if(checked) setCheckedDiets([...checkedDiets,value])
-      else setCheckedDiets(checkedDiets.filter(diet => diet !== value))
+      const { id, checked} = event.target;
+      if(checked) setCheckedDiets([...checkedDiets,id])
+      else setCheckedDiets(checkedDiets.filter(dietId => dietId !== id))
     }
 
+    useEffect(() => {
+      setForm({
+        ...form,
+        diets:checkedDiets
+      });
+    },[checkedDiets]);
+
     const submitHandler = (event) => {
-        event.preventDefault()
-        setForm({
-          ...form,
-          diets:checkedDiets
-        })
+        event.preventDefault() 
         fetch("http://localhost:3001/recipes",{
             method: 'POST',
             body: JSON.stringify(form),
@@ -54,8 +57,8 @@ const Form = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', response))
+        .catch(error => console.error('Error:', error))
     };
 
   return (
@@ -85,9 +88,9 @@ const Form = () => {
             return (
               <li key={index}>
                 <div>
-                  <input type="checkbox" name={diet.name} key={index} id={`checkbox-${index}`}
+                  <input type="checkbox" name={diet.name} key={index} id={diet.id}
                     value={diet.name} onChange={checkboxChangeHandler}/>
-                  <label htmlFor={diet.name}>{diet.name}</label>
+                  <label htmlFor={diet.name}>{diet.name[0].toUpperCase() + diet.name.slice(1)}</label>
                 </div>
               </li>
           )})}

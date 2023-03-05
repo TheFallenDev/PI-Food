@@ -1,15 +1,19 @@
-import style from "./Card.module.css"
+import { Link } from "react-router-dom";
+import style from "./Card.module.css";
 
 const Card = (props) => {
-    return(
-        <div className={style.card}>
-            <img src={props.image} alt={props.title}/>
-            <h2>{props.title}</h2>
-            {props.diets && props.diets.map(diet => (
-                <p>{diet}</p>
-            ))}
-        </div>
-    )
-}
+  return (
+    <div className={style.cardContainer}>
+      <figure className={style.image}>
+        <img src={props.image} alt={props.title} />
+      </figure>
+      <div className={style.cardContent}>
+        <Link className={style.title} to={`/recipe/${props.id}`}>
+          {props.title}
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 export default Card;
