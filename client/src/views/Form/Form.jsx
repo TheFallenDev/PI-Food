@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showLoading } from "../../redux/actions";
 import validate from "./validators";
+import Loader from "../../components/Loader/Loader";
 import style from "./Form.module.css"
 
 const Form = () => {
     const [checkedDiets, setCheckedDiets] = useState([]);
     const diets = useSelector(state=>state.diets);
+    const loading = useSelector((state) => state.loading);
+    const dispatch = useDispatch();
+
     const [form,setForm] = useState({
         title:"",
         summary:"",
@@ -62,27 +65,27 @@ const Form = () => {
     };
 
   return (
-    <form className={style.form} onSubmit={submitHandler}>
-      <h1>Crea tu propia receta</h1>
+    <form className={style.container} onSubmit={submitHandler}>
+      <h1 className={style.title}>Create your own recipe</h1>
       <div>
-        <label>Nombre: </label>
+        <label>Name </label>
         <input type="text" value={form.title} onChange={changeHandler} name="title"/>
         {errors.title && <span>{errors.title}</span>}
       </div>
       <div>
-        <label>Resumen de plato: </label>
+        <label>Summary: </label>
         <textarea value={form.summary} onChange={changeHandler} name="summary"/>
       </div>
       <div>
-        <label>Nivel de comida saludable: </label>
+        <label>Health score: </label>
         <input type="text" value={form.healthScore} onChange={changeHandler} name="healthScore"/>
       </div>
       <div>
-        <label>Paso a paso: </label>
+        <label>Instructions: </label>
         <textarea value={form.instructions} onChange={changeHandler} name="instructions"/>
       </div>
       <div>
-        <h3>Tipos de dieta</h3>
+        <h3>Diets</h3>
         <ul>
           {diets.map((diet,index) => {
             return (
@@ -96,7 +99,8 @@ const Form = () => {
           )})}
         </ul>
       </div>
-      <button type="submit">Crear receta</button>
+      <button type="submit">Add recipe!</button>
+      {loading && <Loader />}
     </form>
   );
 };

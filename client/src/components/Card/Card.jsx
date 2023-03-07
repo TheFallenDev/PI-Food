@@ -8,10 +8,10 @@ const Card = (props) => {
         <img src={props.image} alt={props.title} />
       </figure>
       <div className={style.cardContent}>
-        <Link className={style.title} to={`/recipe/${props.id}`}>
-          {props.title}
-        </Link>
+        <h2>{props.title}</h2>
+        <p>{props.diets}</p>
       </div>
+      <Link className={style.read} to={`/recipe/${props.id}`}>Read more</Link>
     </div>
   );
 };

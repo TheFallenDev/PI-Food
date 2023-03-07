@@ -6,3 +6,30 @@
     justify-content: flex-end;
     max-width: 850px;
 }
+
+.pages{
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    flex-direction: row;
+}
+
+.pages p{
+    margin: 10px;
+    padding: 3px;
+    background-color: #FCEDDA;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: max-content;
+}
+
+.pages button{
+    margin: 10px;
+    padding: 3px;
+    background-color: #EE4E34;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 10rem;
+}

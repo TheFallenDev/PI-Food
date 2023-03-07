@@ -8,7 +8,6 @@ import style from "./Home.module.css";
 const Home = () => {
   const loading = useSelector((state) => state.loading);
   
-
   return (
     <div className={style.container}>
       <div className={style.smallContainer}>

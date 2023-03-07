@@ -1,4 +1,4 @@
-const { Recipe } = require("../db");
+const { Recipe, Diet } = require("../db");
 const { Op } = require('sequelize');
 const { API_KEY } = process.env;
 const axios = require('axios')
@@ -30,9 +30,10 @@ const searchRecipeByTitle = async (title) => {
             title: {
                 [Op.iLike] : '%' + title + '%'
             }
-        }
+        },
+        include: Diet,
     });
-    if(recipes.length < 100) {
+     if(recipes.length < 100) {
         const length = 100 - recipes.length;
         const apiResults = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${title}&apiKey=${API_KEY}&number=${length}&addRecipeInformation=true`)).data.results;
         let response = [...recipes,...apiResults];
